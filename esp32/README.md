@@ -104,3 +104,19 @@ The ESP32 runs an unencrypted HTTP web server on port `80`. Connect the Android 
 2.  Fetch the ESP32's assigned IP address (printed via Serial over USB on boot, or found in the hotspot's connected devices list).
 3.  The App should poll `http://<ESP_IP>/status` to sync the UI with the physical state.
 4.  The App can send `GET` requests to `/toggle` and `/calibrate` to control the device remotely, mirroring the physical touch sensor's functionality.
+
+### 4.3 Arduino CLI Operations
+
+1. Compile and upload using:
+
+```bash
+arduino-cli compile -b esp32:esp32:esp32 && arduino-cli upload -b esp32:esp32:esp32 -p /dev/ttyUSB0
+```
+
+> Sometimes upload does not work immedietely. You may have to check port /dev/ttyUSB\* or click and hold the boot button on the esp32 when uploading.
+
+2. Serial monitor:
+
+```bash
+arduino-cli monitor --port /dev/ttyUSB0 --fqbn esp32:esp32:esp32 --config 115200
+```
