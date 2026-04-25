@@ -2,13 +2,8 @@
 #include <WiFi.h>
 
 // --- Wi-Fi Credentials ---
-<<<<<<< Updated upstream
-const char* ssid = "";
-const char* password = "";
-=======
 const char *ssid = "";
-const char *password = ":)";
->>>>>>> Stashed changes
+const char *password = "";
 
 WebServer server(80); // HTTP server on port 80
 
@@ -39,7 +34,7 @@ const int MAX_DISTANCE_CM = 300;
 const int ALARM_THRESHOLD_CM = 15;
 int baseline1 = 0;
 int baseline2 = 0;
-int currentDist1 = 0; // Stored globally so the web server can see them
+int currentDist1 = 0;
 int currentDist2 = 0;
 
 int bufferCount1 = 0;
@@ -73,7 +68,7 @@ void setup() {
         digitalWrite(S_LED2, LOW);
         digitalWrite(P_LED, LOW);
 
-        delay(7000);
+        delay(10000);
 
         // 1. Start Wi-Fi connection
         Serial.print("Connecting to Wi-Fi: ");
@@ -106,9 +101,9 @@ void setup() {
 }
 
 void loop() {
-        server.handleClient(); // Listen for incoming HTTP requests from the app
+        server.handleClient();
         handleTouchControl();
-        handlePendingCalibration(); // Checks if the 1.5s delay has finished
+        handlePendingCalibration();
 
         if (isSystemOn && !pendingAutoCalibrate) {
                 runUltrasonicSystem();
@@ -196,7 +191,7 @@ void toggleSystemPower() {
 void handlePendingCalibration() {
         if (pendingAutoCalibrate && (millis() - autoCalibrateTimer >= AUTO_CAL_DELAY_MS)) {
                 calibrateSensors();
-                pendingAutoCalibrate = false; // Stop timer
+                pendingAutoCalibrate = false;
         }
 }
 
@@ -220,7 +215,7 @@ void calibrateSensors() {
 
         digitalWrite(S_LED1, HIGH);
         digitalWrite(S_LED2, HIGH);
-        delay(300); // Small blocking visual confirmation is fine here
+        delay(300);
         digitalWrite(S_LED1, LOW);
         digitalWrite(S_LED2, LOW);
 
@@ -235,8 +230,7 @@ void runUltrasonicSystem() {
 
                 if (pingSensor1Next) {
                         if (!s1_Triggered && baseline1 > 0) {
-                                currentDist1 =
-                                    getDistance(TRIG1, ECHO1); // Saved to global for web JSON
+                                currentDist1 = getDistance(TRIG1, ECHO1);
                                 processDistance(1, currentDist1, baseline1, bufferCount1,
                                                 s1_Triggered, S_LED1);
                         }
@@ -273,17 +267,6 @@ void processDistance(int sensorNum, int currentDist, int baseline, int &bufferCo
                 bufferCount = 0;
         }
 
-<<<<<<< Updated upstream
-  if (bufferCount >= BUFFER_REQUIRED) {
-    triggerFlag = true;
-    digitalWrite(ledPin, HIGH); 
-    Serial.print("!!! INTRUDER DETECTED ON SENSOR ");
-    Serial.print(sensorNum);
-    Serial.print(" !!! Distance: ");
-    Serial.print(currentDist);
-    Serial.println(" cm");
-  }
-=======
         if (bufferCount >= BUFFER_REQUIRED) {
                 triggerFlag = true;
                 digitalWrite(ledPin, HIGH);
@@ -293,5 +276,4 @@ void processDistance(int sensorNum, int currentDist, int baseline, int &bufferCo
                 Serial.print(currentDist);
                 Serial.println(" cm");
         }
->>>>>>> Stashed changes
 }
