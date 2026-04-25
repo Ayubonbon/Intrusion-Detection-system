@@ -4,13 +4,13 @@
 
 ### 1.1 Components
 
-| Component     | Description             | Operating Voltage        | Key Specifications                                                                                                                        |
-| :------------ | :---------------------- | :----------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
-| **ESP32**     | Main microcontroller    | 3.3V (Logic) / 5V (VIN)  | Dual-core, 2.4 GHz Wi-Fi. Handles non-blocking sensor polling and HTTP server simultaneously.                                             |
-| **AJ-SR04M**  | Ultrasonic Sensor 1     | 5V                       | Range: 20cm - 600cm. Waterproof probe. **Note:** Requires a voltage divider on the Echo pin to step down 5V to 3.3V to protect the ESP32. |
-| **RCWL-1655** | Ultrasonic Sensor 2     | 3.3V                     | Range: 2cm - 400cm. 3.3V logic compatible, directly connectable to ESP32.                                                                 |
-| **TTP223**    | Capacitive Touch Sensor | 2V - 5.5V                | Digital output (HIGH on touch). Response time: ~60ms (fast mode) / ~220ms (low power mode).                                               |
-| **LEDs**      | Status Indicators (x3)  | ~2V (Requires Resistors) | Standard 5mm LEDs. Use 220Ω - 330Ω resistors in series to limit current draw.                                                             |
+| Component     | Description             | Operating Voltage                | Key Specifications                                                                            |
+| :------------ | :---------------------- | :------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **ESP32**     | Main microcontroller    | 3.3V (Logic) / 5V (VIN)          | Dual-core, 2.4 GHz Wi-Fi. Handles non-blocking sensor polling and HTTP server simultaneously. |
+| **AJ-SR04M**  | Ultrasonic Sensor 1     | 5V / 3.3V                        | Range: 20cm - 600cm. Waterproof probe.                                                        |
+| **RCWL-1655** | Ultrasonic Sensor 2     | 3.3V                             | Range: 2cm - 400cm.                                                                           |
+| **TTP223**    | Capacitive Touch Sensor | 2V - 5.5V                        | Digital output (HIGH on touch). Response time: ~60ms (fast mode) / ~220ms (low power mode).   |
+| **LEDs**      | Status Indicators (x3)  | ~2V (Requires 270 Ohm Resistors) | Standard 5mm LEDs. Use 220Ω - 330Ω resistors in series to limit current draw.                 |
 
 ### 1.2 Pin Mapping & Characteristics
 
@@ -119,4 +119,10 @@ arduino-cli compile -b esp32:esp32:esp32 && arduino-cli upload -b esp32:esp32:es
 
 ```bash
 arduino-cli monitor --port /dev/ttyUSB0 --fqbn esp32:esp32:esp32 --config 115200
+```
+
+3. Usually just run:
+
+```bash
+arduino-cli compile -b esp32:esp32:esp32 && arduino-cli upload -b esp32:esp32:esp32 -p /dev/ttyUSB0 && arduino-cli monitor --port /dev/ttyUSB0 --fqbn esp32:esp32:esp32 --config 115200
 ```
